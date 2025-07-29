@@ -1,6 +1,6 @@
 use std::io;
 fn main(){
-    println!("Calculator");
+    println!("Simple Calculator");
     println!("Available operations: + (addition), - (subtraction), * (multiplication), / (division)");
     println!("Enter operation: e.g 5 + 3");
 
@@ -11,24 +11,33 @@ fn main(){
         println!("Invalid Input, Follow the structure: number operator number")
     }
 
-    if tokens[1] == "+" {
-        let num1: f64 = tokens[0].parse().unwrap();
-        let num2: f64 = tokens[2].parse().unwrap();
+    let num1: f64 = match tokens[0].parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid first number");
+            return;
+        }
+    };
+    let num2: f64 = match tokens[2].parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid second number");
+            return;
+        }
+    };
+
+    let operator = tokens[1];
+
+    if operator == "+" {
         let result = add(num1, num2);
         println!("Result: {}", result);
-    } else if tokens[1] == "-" {
-        let num1: f64 = tokens[0].parse().unwrap();
-        let num2: f64 = tokens[2].parse().unwrap();
-        let result = subtract(num1, num2);
+    } else if operator == "-" {
+q        let result = subtract(num1, num2);
         println!("Result: {}", result);
-    } else if tokens[1] == "*" {
-        let num1: f64 = tokens[0].parse().unwrap();
-        let num2: f64 = tokens[2].parse().unwrap();
+    } else if operator == "*" {
         let result = multiply(num1, num2);
         println!("Result: {}", result);
-    } else if tokens[1] == "/" {
-        let num1: f64 = tokens[0].parse().unwrap();
-        let num2: f64 = tokens[2].parse().unwrap();
+    } else if operator == "/" {
         let result = divide(num1, num2);
         println!("Result: {}", result);
     } else {
@@ -56,3 +65,5 @@ fn divide(num1: f64, num2: f64) -> f64 {
         return 0.0;
     }
 }
+
+
